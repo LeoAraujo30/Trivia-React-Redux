@@ -40,7 +40,7 @@ class Feedback extends React.Component {
 
   render() {
     const { gravatarImageUrl } = this.state;
-    const { username, scores } = this.props;
+    const { username, scores, assertions } = this.props;
     const altText = `Imagem de ${username}`;
     const feedback = this.getFeedback();
     return (

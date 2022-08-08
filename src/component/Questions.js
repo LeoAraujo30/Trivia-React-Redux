@@ -39,6 +39,19 @@ class Questions extends Component {
     }
   }
 
+  // Função para randomizar array
+ shuffleArray = (arr) => {
+   // Loop em todos os elementos
+   for (let i = arr.length - 1; i > 0; i -= 1) {
+     // Escolhendo elemento aleatório
+     const j = Math.floor(Math.random() * (i + 1));
+     // Reposicionando elemento
+     [arr[i], arr[j]] = [arr[j], arr[i]];
+   }
+   // Retornando array com aleatoriedade
+   return arr;
+ }
+
     getQuestions = async (token) => {
       const request = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
       const requestJson = await request.json();
@@ -62,6 +75,7 @@ class Questions extends Component {
       }
       if (questions.length !== 0) {
         const array = questions[0].incorrect_answers.concat(questions[0].correct_answer);
+        const arrayRandom = this.shuffleArray(array);
         return (
           <div>
             <p>
@@ -73,7 +87,7 @@ class Questions extends Component {
               <p data-testid="question-text">{ questions[0].question }</p>
               <div data-testid="answer-options">
                 {
-                  array.sort(() => number05 - Math.random()).map((element) => (
+                  arrayRandom.map((element) => (
                     element === questions[0].correct_answer
                       ? (
                         <button
