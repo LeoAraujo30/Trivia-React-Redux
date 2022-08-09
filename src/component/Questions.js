@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { addScore } from '../redux/actions';
+import { addScore, addAssertions } from '../redux/actions';
+import { correto, errado } from '../redux/actions/actionTypes';
 
 class Questions extends Component {
   constructor() {
@@ -32,7 +33,20 @@ class Questions extends Component {
     }
   }
 
-  handleClickAnswer = () => {
+  handleClickRightAnswer = () => {
+    const { clicked } = this.state;
+    const { addAssertionss } = this.props;
+    if (!clicked) {
+      this.setState({
+        classCorrectOption: correto,
+        classWrongOptions: errado,
+        clicked: true,
+      });
+      addAssertionss();
+    }
+  }
+
+  handleClickWrongAnswer = () => {
     const { clicked } = this.state;
     if (!clicked) {
       this.setState({
@@ -126,7 +140,7 @@ class Questions extends Component {
                             || classCorrectOption === testReponse }
                           className={ classCorrectOption }
                           onClick={ () => {
-                            this.handleClickAnswer();
+                            this.handleClickRightAnswer();
                             this.somaScore(seconds, questions[idQuestion].difficulty);
                           } }
                         >
@@ -141,7 +155,7 @@ class Questions extends Component {
                           disabled={ seconds === 0
                             || classCorrectOption === testReponse }
                           className={ classWrongOptions }
-                          onClick={ () => this.handleClickAnswer() }
+                          onClick={ () => this.handleClickWrongAnswer() }
                         >
                           { element }
                         </button>)))
@@ -166,6 +180,7 @@ class Questions extends Component {
 }
 
 Questions.propTypes = {
+  addAssertionss: propTypes.func.isRequired,
   addScoreDispatch: propTypes.func.isRequired,
   history: propTypes.shape({
     push: propTypes.func,
@@ -175,6 +190,7 @@ Questions.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   addScoreDispatch: (score) => dispatch(addScore(score)),
+  addAssertionss: () => dispatch(addAssertions()),
 });
 
 export default connect(null, mapDispatchToProps)(Questions);
