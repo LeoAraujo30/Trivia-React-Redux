@@ -20,6 +20,23 @@ class Game extends React.Component {
     });
   }
 
+  handleSetLocalStorage = () => {
+    const { username, score } = this.props;
+    const { gravatarImageUrl } = this.state;
+    if (localStorage.getItem('ranking')) {
+      const item = [
+        ...localStorage.getItem('ranking'),
+        { name: username, score, picture: gravatarImageUrl },
+      ];
+      localStorage.setItem('ranking', JSON.stringify(item));
+    } else {
+      const item = [
+        { name: username, score, picture: gravatarImageUrl },
+      ];
+      localStorage.setItem('ranking', JSON.stringify(item));
+    }
+  }
+
   render() {
     const { username, score, history } = this.props;
     const { gravatarImageUrl } = this.state;
@@ -37,7 +54,10 @@ class Game extends React.Component {
           </div>
           <h4 data-testid="header-score">{ `Score = ${score}` }</h4>
         </header>
-        <Questions history={ history } />
+        <Questions
+          setLocalStorage={ () => this.handleSetLocalStorage() }
+          history={ history }
+        />
       </div>
     );
   }

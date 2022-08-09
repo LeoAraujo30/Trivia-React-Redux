@@ -64,7 +64,7 @@ class Questions extends Component {
 
     getAnswers = () => {
       const { questions, idQuestion } = this.state;
-      const { history } = this.props;
+      const { history, setLocalStorage } = this.props;
       const TRES = 3;
       if (idQuestion <= TRES) {
         const number05 = 0.5;
@@ -79,6 +79,7 @@ class Questions extends Component {
           clicked: false,
         });
       } else {
+        setLocalStorage();
         history.push('/feedback');
       }
     };
@@ -155,7 +156,7 @@ class Questions extends Component {
                       onClick={ () => this.getAnswers() }
                     >
                       Next
-                    </button>) : ''}
+                    </button>) : <> </>}
               </div>
             </div>
           </div>);
@@ -169,6 +170,7 @@ Questions.propTypes = {
   history: propTypes.shape({
     push: propTypes.func,
   }).isRequired,
+  setLocalStorage: propTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

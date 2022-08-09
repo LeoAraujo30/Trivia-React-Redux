@@ -15,9 +15,11 @@ class Feedback extends React.Component {
   componentDidMount() {
     const { email } = this.props;
     const UrlEnd = md5(email).toString();
+    const imageURL = `https://www.gravatar.com/avatar/${UrlEnd}`;
     this.setState({
-      gravatarImageUrl: `https://www.gravatar.com/avatar/${UrlEnd}`,
+      gravatarImageUrl: imageURL,
     });
+    console.log(localStorage.getItem('ranking'));
   }
 
   getFeedback = () => {
