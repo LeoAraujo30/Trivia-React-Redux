@@ -9,3 +9,7 @@ export const addScore = (score) => (
 );
 
 export const qualquercoisa = () => ({});
+
+export const addAssertions = () => ({
+  type: actionTypes.ADD_ASSERTIONS,
+});
