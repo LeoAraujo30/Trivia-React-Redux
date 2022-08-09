@@ -21,7 +21,7 @@ class Game extends React.Component {
   }
 
   render() {
-    const { username, score } = this.props;
+    const { username, score, history } = this.props;
     const { gravatarImageUrl } = this.state;
     const altText = `Imagem de ${username}`;
     return (
@@ -37,7 +37,7 @@ class Game extends React.Component {
           </div>
           <h4 data-testid="header-score">{ `Score = ${score}` }</h4>
         </header>
-        <Questions />
+        <Questions history={ history } />
       </div>
     );
   }
@@ -47,6 +47,9 @@ Game.propTypes = {
   username: propTypes.string.isRequired,
   email: propTypes.string.isRequired,
   score: propTypes.number.isRequired,
+  history: propTypes.shape({
+    push: propTypes.func,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({

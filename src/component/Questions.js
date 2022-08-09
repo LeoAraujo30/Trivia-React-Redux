@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import { addScore } from '../redux/actions';
 
 class Questions extends Component {
@@ -47,27 +46,41 @@ class Questions extends Component {
     getQuestions = async (token) => {
       const request = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
       const requestJson = await request.json();
-      console.log(requestJson);
       const number05 = 0.5;
-      this.setState({
-        questions: requestJson.results,
-        answers: requestJson.results[0].incorrect_answers
-          .concat(requestJson.results[0].correct_answer)
-          .sort(() => number05 - Math.random()),
-        teste: requestJson,
-      });
+      const { history } = this.props;
+      try {
+        this.setState({
+          questions: requestJson.results,
+          answers: requestJson.results[0].incorrect_answers
+            .concat(requestJson.results[0].correct_answer)
+            .sort(() => number05 - Math.random()),
+          teste: requestJson,
+        });
+      } catch {
+        history.push('/');
+      }
       return requestJson;
     };
 
     getAnswers = () => {
       const { questions, idQuestion } = this.state;
-      const number05 = 0.5;
-      this.setState({
-        answers: questions[idQuestion + 1].incorrect_answers
-          .concat(questions[idQuestion + 1].correct_answer)
-          .sort(() => number05 - Math.random()),
-        idQuestion: idQuestion + 1,
-      });
+      const { history } = this.props;
+      const TRES = 3;
+      if (idQuestion <= TRES) {
+        const number05 = 0.5;
+        this.setState({
+          answers: questions[idQuestion + 1].incorrect_answers
+            .concat(questions[idQuestion + 1].correct_answer)
+            .sort(() => number05 - Math.random()),
+          idQuestion: idQuestion + 1,
+          classWrongOptions: 'options',
+          classCorrectOption: 'options',
+          seconds: 30,
+          clicked: false,
+        });
+      } else {
+        history.push('/feedback');
+      }
     };
 
     somaScore = (timer, difficulty) => {
@@ -82,11 +95,11 @@ class Questions extends Component {
     render() {
       const { teste, questions, seconds, classWrongOptions,
         classCorrectOption, answers, idQuestion } = this.state;
+      const { history } = this.props;
       const number3 = 3;
       const testReponse = 'correct-option';
-
       if (teste.response_code === number3) {
-        return <Redirect to="/" />;
+        history.push('/');
       }
       if (questions.length !== 0) {
         return (
@@ -139,7 +152,7 @@ class Questions extends Component {
                     <button
                       type="button"
                       data-testid="btn-next"
-                      // onClick={ () => this.getAnswers() }
+                      onClick={ () => this.getAnswers() }
                     >
                       Next
                     </button>) : ''}
@@ -153,6 +166,9 @@ class Questions extends Component {
 
 Questions.propTypes = {
   addScoreDispatch: propTypes.func.isRequired,
+  history: propTypes.shape({
+    push: propTypes.func,
+  }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
