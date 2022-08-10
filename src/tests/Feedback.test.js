@@ -4,13 +4,22 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { screen } from '@testing-library/react';
 
+const stateTest = {
+    player: {
+      name: 'Bárbara',
+      assertions: 4,
+      score: 160,
+      gravatarEmail: 'barbaracmg@gmail.com',
+      gravatarImageUrl: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y',
+    }
+  };
+
 describe('Testando a pagina de feedback', () => {
     it('Testando se o path está correto', () => {
         const { history } = renderWithRouterAndRedux(<App />);
         history.push('/feedback')
 
         const { pathname } = history.location;
-        console.log(screen.logTestingPlaygroundURL());
         expect(pathname).toBe('/feedback');
     })
 
@@ -59,5 +68,16 @@ describe('Testando a pagina de feedback', () => {
 
         const { pathname } = history.location;
         expect(pathname).toBe('/ranking');
+    })
+
+    it('Testando se a mensagem Well Done aparece', () => {
+        const { history } = renderWithRouterAndRedux(<App />, stateTest);
+        history.push('/feedback')
+
+        console.log(screen.logTestingPlaygroundURL());
+
+       const wellDone = screen.getByRole('heading', { name: /well done!/i })
+
+       expect(wellDone).toBeInTheDocument();
     })
 })
