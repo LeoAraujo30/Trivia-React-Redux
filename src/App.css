@@ -146,9 +146,9 @@ body {
 .game-header {
   align-content: center;
   background-color: #3b424e;
+  border-bottom: 2px solid black;
   display: flex;
   justify-content: space-around;
-  border-bottom: 2px solid black;
   padding: 25px;
 }
 

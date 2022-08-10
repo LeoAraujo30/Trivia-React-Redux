@@ -10,7 +10,7 @@ const sucessToken = {
       {
         "category":"Entertainment: Video Games fps",
         "type":"multiple",
-        "difficulty":"hard",
+        "difficulty":"mediun",
         "question":"What is the first weapon you acquire in Half-Life?",
         "correct_answer":"A crowbar",
         "incorrect_answers":[
