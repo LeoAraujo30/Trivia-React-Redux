@@ -4,13 +4,137 @@ import App from '../App';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-const sucessToken = {
+const sucessToken1 = {
   "response_code":0,
   "results":[
       {
         "category":"Entertainment: Video Games fps",
         "type":"multiple",
-        "difficulty":"mediun",
+        "difficulty":"medium",
+        "question":"What is the first weapon you acquire in Half-Life?",
+        "correct_answer":"A crowbar",
+        "incorrect_answers":[
+            "A pistol",
+            "The H.E.V suit",
+            "Your fists"
+        ]
+      },
+      {
+        "category":"Entertainment: Video Games",
+        "type":"boolean",
+        "difficulty":"hard",
+        "question":"TF2: Sentry rocket damage falloff is calculated based on the distance between the sentry and the enemy, not the engineer and the enemy",
+        "correct_answer":"False",
+        "incorrect_answers":[
+            "True"
+        ]
+      },
+      {
+        "category":"Entertainment: Video Games",
+        "type":"multiple",
+        "difficulty":"easy",
+        "question":"What is the first weapon you acquire in Half-Life?",
+        "correct_answer":"A crowbar",
+        "incorrect_answers":[
+            "A pistol",
+            "The H.E.V suit",
+            "Your fists"
+        ]
+      },
+      {
+        "category":"Entertainment: Video Games",
+        "type":"boolean",
+        "difficulty":"hard",
+        "question":"TF2: Sentry rocket damage falloff is calculated based on the distance between the sentry and the enemy, not the engineer and the enemy",
+        "correct_answer":"False",
+        "incorrect_answers":[
+            "True"
+        ]
+      },
+      {
+        "category":"Entertainment: Video Games",
+        "type":"multiple",
+        "difficulty":"easy",
+        "question":"What is the first weapon you acquire in Half-Life?",
+        "correct_answer":"A crowbar",
+        "incorrect_answers":[
+            "A pistol",
+            "The H.E.V suit",
+            "Your fists"
+        ]
+      },
+  ]
+};
+
+const sucessToken2 = {
+  "response_code":0,
+  "results":[
+      {
+        "category":"Entertainment: Video Games fps",
+        "type":"multiple",
+        "difficulty":"hard",
+        "question":"What is the first weapon you acquire in Half-Life?",
+        "correct_answer":"A crowbar",
+        "incorrect_answers":[
+            "A pistol",
+            "The H.E.V suit",
+            "Your fists"
+        ]
+      },
+      {
+        "category":"Entertainment: Video Games",
+        "type":"boolean",
+        "difficulty":"hard",
+        "question":"TF2: Sentry rocket damage falloff is calculated based on the distance between the sentry and the enemy, not the engineer and the enemy",
+        "correct_answer":"False",
+        "incorrect_answers":[
+            "True"
+        ]
+      },
+      {
+        "category":"Entertainment: Video Games",
+        "type":"multiple",
+        "difficulty":"easy",
+        "question":"What is the first weapon you acquire in Half-Life?",
+        "correct_answer":"A crowbar",
+        "incorrect_answers":[
+            "A pistol",
+            "The H.E.V suit",
+            "Your fists"
+        ]
+      },
+      {
+        "category":"Entertainment: Video Games",
+        "type":"boolean",
+        "difficulty":"hard",
+        "question":"TF2: Sentry rocket damage falloff is calculated based on the distance between the sentry and the enemy, not the engineer and the enemy",
+        "correct_answer":"False",
+        "incorrect_answers":[
+            "True"
+        ]
+      },
+      {
+        "category":"Entertainment: Video Games",
+        "type":"multiple",
+        "difficulty":"easy",
+        "question":"What is the first weapon you acquire in Half-Life?",
+        "correct_answer":"A crowbar",
+        "incorrect_answers":[
+            "A pistol",
+            "The H.E.V suit",
+            "Your fists"
+        ]
+      },
+  ]
+};
+
+const sucessToken3 = {
+  "response_code":0,
+  "results":[
+      {
+        "category":"Entertainment: Video Games fps",
+        "type":"multiple",
+        "difficulty":"easy",
         "question":"What is the first weapon you acquire in Half-Life?",
         "correct_answer":"A crowbar",
         "incorrect_answers":[
@@ -71,7 +195,7 @@ afterEach((() => jest.clearAllMocks));
 describe('Testando o componente <Game />', () => {
   it('Testando a tela de jogo', async () => {
     global.fetch = jest.fn().mockResolvedValue({
-        json: jest.fn().mockResolvedValue(sucessToken),
+        json: jest.fn().mockResolvedValue(sucessToken1),
       });
     const { history } = renderWithRouterAndRedux(<App />);
     history.push('/game');
@@ -106,7 +230,7 @@ describe('Testando o componente <Game />', () => {
   });
   it('Testando a tela de jogo 2 vezes', async () => {
     global.fetch = jest.fn().mockResolvedValue({
-        json: jest.fn().mockResolvedValue(sucessToken),
+        json: jest.fn().mockResolvedValue(sucessToken2),
       });
     const { history } = renderWithRouterAndRedux(<App />);
 
@@ -143,16 +267,34 @@ describe('Testando o componente <Game />', () => {
     userEvent.click(await screen.findByRole('button', { name: 'Play Again' }));
   });
 
+  // O codigo abaixo foi retirado como referencia desse link: 
+  //https://stackoverflow.com/questions/45478730/jest-react-testing-check-state-after-delay
+
   jest.setTimeout(35000);
 
-  it('Testando a tela de jogo 3 vezes', async () => {
+  it('Testando a tela de jogo ao esperar 30s', async () => {
     global.fetch = jest.fn().mockResolvedValue({
-        json: jest.fn().mockResolvedValue(sucessToken),
+        json: jest.fn().mockResolvedValue(sucessToken3),
       });
     const { history } = renderWithRouterAndRedux(<App />);
     history.push('/game');
 
     await new Promise((r) => setTimeout(r, 30000));
     await screen.findByTestId('btn-next');
+  });
+
+  it('Testando a cor dos botões na tela de jogo', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+        json: jest.fn().mockResolvedValue(sucessToken3),
+      });
+    const { history } = renderWithRouterAndRedux(<App />);
+    history.push('/game');
+
+    // const correctAnswer = await screen.findByTestId('correct-answer');
+    // console.log(correctAnswer);
+    expect(await screen.findByTestId('correct-answer')).toHaveProperty('className', 'options');
+    userEvent.click((await screen.findByTestId('correct-answer')));
+    expect((await screen.findByTestId('correct-answer'))).toHaveProperty('className', 'correct-option');
+    
   });
 });
