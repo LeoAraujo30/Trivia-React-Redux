@@ -76,7 +76,7 @@ class Questions extends Component {
 
     getAnswers = () => {
       const { questions, idQuestion } = this.state;
-      const { history } = this.props;
+      const { history, setLocalStorage } = this.props;
       const TRES = 3;
       if (idQuestion <= TRES) {
         const number05 = 0.5;
@@ -91,6 +91,7 @@ class Questions extends Component {
           clicked: false,
         });
       } else {
+        setLocalStorage();
         history.push('/feedback');
       }
     };
@@ -110,14 +111,24 @@ class Questions extends Component {
       const testReponse = 'correct-option';
       if (questions.length !== 0) {
         return (
-          <div>
-            <p data-testid="seconds">
+          <div className="questions">
+            <p className="timer-questions" data-testid="seconds">
               Timer:
               { seconds }
             </p>
             <div key={ questions[idQuestion].index } className="card_question">
-              <p data-testid="question-category">{ questions[idQuestion].category }</p>
-              <p data-testid="question-text">{ questions[idQuestion].question }</p>
+              <p
+                data-testid="question-category"
+                className="question-category"
+              >
+                { questions[idQuestion].category }
+              </p>
+              <p
+                data-testid="question-text"
+                className="question-text"
+              >
+                { questions[idQuestion].question }
+              </p>
               <div data-testid="answer-options">
                 {
                   answers.map((element, index) => (
@@ -159,10 +170,11 @@ class Questions extends Component {
                     <button
                       type="button"
                       data-testid="btn-next"
+                      className="btn-next"
                       onClick={ () => this.getAnswers() }
                     >
                       Next
-                    </button>) : ''}
+                    </button>) : <> </>}
               </div>
             </div>
           </div>);
@@ -177,6 +189,7 @@ Questions.propTypes = {
   history: propTypes.shape({
     push: propTypes.func,
   }).isRequired,
+  setLocalStorage: propTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

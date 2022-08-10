@@ -15,9 +15,11 @@ class Feedback extends React.Component {
   componentDidMount() {
     const { email } = this.props;
     const UrlEnd = md5(email).toString();
+    const imageURL = `https://www.gravatar.com/avatar/${UrlEnd}`;
     this.setState({
-      gravatarImageUrl: `https://www.gravatar.com/avatar/${UrlEnd}`,
+      gravatarImageUrl: imageURL,
     });
+    console.log(localStorage.getItem('ranking'));
   }
 
   getFeedback = () => {
@@ -45,37 +47,40 @@ class Feedback extends React.Component {
     const feedback = this.getFeedback();
     return (
       <div>
-        <header>
-          <img
-            src={ gravatarImageUrl }
-            data-testid="header-profile-picture"
-            alt={ altText }
-          />
-
+        <header className="game-header">
+          <div>
+            <img
+              src={ gravatarImageUrl }
+              data-testid="header-profile-picture"
+              alt={ altText }
+            />
+            <h2 data-testid="header-player-name">{ username }</h2>
+          </div>
+          <h2 data-testid="header-score">{ scores }</h2>
+        </header>
+        <main className="questions">
           <h1 data-testid="feedback-text">
             { feedback }
           </h1>
-          <p data-testid="header-player-name">{ username }</p>
-          <p data-testid="header-score">{ scores }</p>
-        </header>
-        <main>
           <p data-testid="feedback-total-score">{ scores }</p>
           <p data-testid="feedback-total-question">{ assertions }</p>
+          <button
+            type="button"
+            className="btn-next"
+            data-testid="btn-play-again"
+            onClick={ () => this.handlePlayAgainButton() }
+          >
+            Play Again
+          </button>
+          <button
+            type="button"
+            className="btn-next"
+            data-testid="btn-ranking"
+            onClick={ () => this.handleRankingButton() }
+          >
+            Ranking
+          </button>
         </main>
-        <button
-          type="button"
-          data-testid="btn-play-again"
-          onClick={ () => this.handlePlayAgainButton() }
-        >
-          Play Again
-        </button>
-        <button
-          type="button"
-          data-testid="btn-ranking"
-          onClick={ () => this.handleRankingButton() }
-        >
-          Ranking
-        </button>
       </div>
     );
   }

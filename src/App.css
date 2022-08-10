@@ -114,16 +114,112 @@ body {
   background-color: white;
   border: 3px solid black;
   color: black;
+  font-size: medium;
+  height: 40px;
+  margin: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .correct-option {
   background-color: white;
   border: 3px solid rgb(6, 240, 15);
   color: rgb(0, 90, 3);
+  font-size: medium;
+  height: 40px;
+  margin: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .wrong-options {
   background-color: white;
   border: 3px solid red;
   color: darkred;
+  font-size: medium;
+  height: 40px;
+  margin: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.game-header {
+  align-content: center;
+  background-color: #3b424e;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 2px solid black;
+  padding: 25px;
+}
+
+.game-header div {
+  display: flex;
+}
+
+.game-header div h2 {
+  margin-left: 25px;
+}
+
+.questions {
+  align-items: center;
+  background-color: #3b424e;
+  border: 2px solid black;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 10%;
+  padding: 5%;
+}
+
+.question-text {
+  font-size: x-large;
+}
+
+.question-category, .btn-next, .timer-questions {
+  font-size: large;
+}
+
+.btn-next {
+  border: 2px solid black;
+  border-radius: 5px;
+  height: 35px;
+  margin: 20px;
+  padding: 3px 15px;
+  width: 150px;
+}
+
+.btn-next:hover {
+  background-color: black;
+  border: 3px solid white;
+  color: white;
+}
+
+.ranking-title {
+  font-size: xxx-large;
+}
+
+.ranking-list {
+  align-items: center;
+  background-color: #3b424e;
+  border: 2px solid black;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 5%;
+  padding: 5%;
+}
+
+.ranking-list li {
+  align-items: center;
+  background-color: #282c34;
+  border: 2px solid black;
+  border-radius: 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin: 2%;
+  padding: 2%;
+  width: 60%;
 }
