@@ -8,7 +8,6 @@ class Questions extends Component {
   constructor() {
     super();
     this.state = {
-      teste: '',
       questions: '',
       answers: [],
       seconds: 30,
@@ -68,7 +67,6 @@ class Questions extends Component {
           answers: requestJson.results[0].incorrect_answers
             .concat(requestJson.results[0].correct_answer)
             .sort(() => number05 - Math.random()),
-          teste: requestJson,
         });
       } catch {
         history.push('/');
@@ -108,18 +106,13 @@ class Questions extends Component {
     };
 
     render() {
-      const { teste, questions, seconds, classWrongOptions,
+      const { questions, seconds, classWrongOptions,
         classCorrectOption, answers, idQuestion } = this.state;
-      const { history } = this.props;
-      const number3 = 3;
       const testReponse = 'correct-option';
-      if (teste.response_code === number3) {
-        history.push('/');
-      }
       if (questions.length !== 0) {
         return (
           <div className="questions">
-            <p className="timer-questions">
+            <p className="timer-questions" data-testid="seconds">
               Timer:
               { seconds }
             </p>

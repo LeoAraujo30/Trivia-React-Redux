@@ -148,8 +148,8 @@ body {
   background-color: #3b424e;
   display: flex;
   justify-content: space-around;
+  border-bottom: 2px solid black;
   padding: 25px;
-  border-bottom: 2px solid black;;
 }
 
 .game-header div {
@@ -176,7 +176,7 @@ body {
   font-size: x-large;
 }
 
-.question-category , .btn-next , .timer-questions {
+.question-category, .btn-next, .timer-questions {
   font-size: large;
 }
 
