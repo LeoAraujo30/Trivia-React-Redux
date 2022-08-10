@@ -19,7 +19,6 @@ class Feedback extends React.Component {
     this.setState({
       gravatarImageUrl: imageURL,
     });
-    console.log(localStorage.getItem('ranking'));
   }
 
   getFeedback = () => {

@@ -106,26 +106,47 @@ describe('Testando o componente <Game />', () => {
     userEvent.click(await screen.findByTestId('btn-next'));
     userEvent.click(await screen.findByTestId('wrong-answer'));
     userEvent.click(await screen.findByTestId('btn-next'));
-    userEvent.click(await screen.getByTestId('correct-answer'));
+    userEvent.click(await screen.findByTestId('correct-answer'));
     userEvent.click(await screen.findByTestId('btn-next'));
     expect(history.location.pathname).toBe('/feedback');
   });
-  it('Testando a tela de jogo ao esperar 5', async () => {
+  it('Testando a tela de jogo 2 vezes', async () => {
     global.fetch = jest.fn().mockResolvedValue({
         json: jest.fn().mockResolvedValue(sucessToken),
       });
     const { history } = renderWithRouterAndRedux(<App />);
-    history.push('/game');
-    setTimeout(async () => {
-        userEvent.click(await screen.findByTestId('correct-answer'));
-        userEvent.click(await screen.findByTestId('btn-next'));
-    }, 5000);
 
-    // await waitFor(async () => {
-    //     expect(await screen.findByTestId('seconds')).toHaveTextContent('Timer:25');
-    // });
-    // userEvent.click(await screen.findByTestId('correct-answer'));
-    // userEvent.click(await screen.findByTestId('btn-next'));
+    userEvent.type(screen.getByTestId('input-player-name'), 'nickName1');
+    userEvent.type(screen.getByTestId('input-gravatar-email'), 'alguem1@alguem1.com');
+    userEvent.click(await screen.findByRole('button', { name: 'Play' }));
+    userEvent.click(await screen.findByTestId('correct-answer'));
+    userEvent.click(await screen.findByTestId('btn-next'));
+    userEvent.click(await screen.findByTestId('wrong-answer'));
+    userEvent.click(await screen.findByTestId('btn-next'));
+    userEvent.click(await screen.findByTestId('correct-answer'));
+    userEvent.click(await screen.findByTestId('btn-next'));
+    userEvent.click(await screen.findByTestId('wrong-answer'));
+    userEvent.click(await screen.findByTestId('btn-next'));
+    userEvent.click(await screen.getByTestId('correct-answer'));
+    userEvent.click(await screen.findByTestId('btn-next'));
+    expect(history.location.pathname).toBe('/feedback');
+    userEvent.click(await screen.findByRole('button', { name: 'Play Again' }));
+
+    userEvent.type(screen.getByTestId('input-player-name'), 'nickName2');
+    userEvent.type(screen.getByTestId('input-gravatar-email'), 'alguem2@alguem2.com');
+    userEvent.click(await screen.findByRole('button', { name: 'Play' }));
+    userEvent.click(await screen.findByTestId('correct-answer'));
+    userEvent.click(await screen.findByTestId('btn-next'));
+    userEvent.click(await screen.findByTestId('wrong-answer'));
+    userEvent.click(await screen.findByTestId('btn-next'));
+    userEvent.click(await screen.findByTestId('correct-answer'));
+    userEvent.click(await screen.findByTestId('btn-next'));
+    userEvent.click(await screen.findByTestId('wrong-answer'));
+    userEvent.click(await screen.findByTestId('btn-next'));
+    userEvent.click(await screen.getByTestId('correct-answer'));
+    userEvent.click(await screen.findByTestId('btn-next'));
+    expect(history.location.pathname).toBe('/feedback');
+    userEvent.click(await screen.findByRole('button', { name: 'Play Again' }));
 
   });
 });
