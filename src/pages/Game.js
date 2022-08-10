@@ -25,7 +25,7 @@ class Game extends React.Component {
     const { gravatarImageUrl } = this.state;
     if (localStorage.getItem('ranking')) {
       const item = [
-        ...localStorage.getItem('ranking'),
+        ...JSON.parse(localStorage.getItem('ranking')),
         { name: username, score, picture: gravatarImageUrl },
       ];
       localStorage.setItem('ranking', JSON.stringify(item));
@@ -43,16 +43,16 @@ class Game extends React.Component {
     const altText = `Imagem de ${username}`;
     return (
       <div>
-        <header>
+        <header className="game-header">
           <div>
             <img
               src={ gravatarImageUrl }
               data-testid="header-profile-picture"
               alt={ altText }
             />
-            <p data-testid="header-player-name">{username}</p>
+            <h2 data-testid="header-player-name">{username}</h2>
           </div>
-          <h4 data-testid="header-score">{ `Score = ${score}` }</h4>
+          <h2 data-testid="header-score">{ `Score = ${score}` }</h2>
         </header>
         <Questions
           setLocalStorage={ () => this.handleSetLocalStorage() }

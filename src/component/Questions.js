@@ -118,14 +118,24 @@ class Questions extends Component {
       }
       if (questions.length !== 0) {
         return (
-          <div>
-            <p>
+          <div className="questions">
+            <p className="timer-questions">
               Timer:
               { seconds }
             </p>
             <div key={ questions[idQuestion].index } className="card_question">
-              <p data-testid="question-category">{ questions[idQuestion].category }</p>
-              <p data-testid="question-text">{ questions[idQuestion].question }</p>
+              <p
+                data-testid="question-category"
+                className="question-category"
+              >
+                { questions[idQuestion].category }
+              </p>
+              <p
+                data-testid="question-text"
+                className="question-text"
+              >
+                { questions[idQuestion].question }
+              </p>
               <div data-testid="answer-options">
                 {
                   answers.map((element, index) => (
@@ -167,6 +177,7 @@ class Questions extends Component {
                     <button
                       type="button"
                       data-testid="btn-next"
+                      className="btn-next"
                       onClick={ () => this.getAnswers() }
                     >
                       Next
