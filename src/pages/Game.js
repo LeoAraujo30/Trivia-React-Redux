@@ -20,24 +20,44 @@ class Game extends React.Component {
     });
   }
 
+  handleSetLocalStorage = () => {
+    const { username, score } = this.props;
+    const { gravatarImageUrl } = this.state;
+    if (localStorage.getItem('ranking')) {
+      const item = [
+        ...JSON.parse(localStorage.getItem('ranking')),
+        { name: username, score, picture: gravatarImageUrl },
+      ];
+      localStorage.setItem('ranking', JSON.stringify(item));
+    } else {
+      const item = [
+        { name: username, score, picture: gravatarImageUrl },
+      ];
+      localStorage.setItem('ranking', JSON.stringify(item));
+    }
+  }
+
   render() {
     const { username, score, history } = this.props;
     const { gravatarImageUrl } = this.state;
     const altText = `Imagem de ${username}`;
     return (
       <div>
-        <header>
+        <header className="game-header">
           <div>
             <img
               src={ gravatarImageUrl }
               data-testid="header-profile-picture"
               alt={ altText }
             />
-            <p data-testid="header-player-name">{username}</p>
+            <h2 data-testid="header-player-name">{username}</h2>
           </div>
-          <h4 data-testid="header-score">{ `Score = ${score}` }</h4>
+          <h2 data-testid="header-score">{ `Score = ${score}` }</h2>
         </header>
-        <Questions history={ history } />
+        <Questions
+          setLocalStorage={ () => this.handleSetLocalStorage() }
+          history={ history }
+        />
       </div>
     );
   }

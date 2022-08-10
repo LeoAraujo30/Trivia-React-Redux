@@ -15,6 +15,8 @@ const player = (state = INITIAL_STATE, action) => {
       ...state,
       name: action.name,
       gravatarEmail: action.gravatarEmail,
+      assertions: 0,
+      score: 0,
     });
   case actionTypes.ADD_SCORE:
     return ({
