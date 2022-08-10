@@ -1,9 +1,8 @@
 import React from 'react';
 import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
 import App from '../App';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Questions from '../component/Questions';
 
 const sucessToken = {
   "response_code":0,
@@ -66,11 +65,6 @@ const sucessToken = {
       },
   ]
 };
-
-// const failToken = {
-//     "response_code":3,
-//     "results":[]
-// };
 
 afterEach((() => jest.clearAllMocks));
 
@@ -147,6 +141,5 @@ describe('Testando o componente <Game />', () => {
     userEvent.click(await screen.findByTestId('btn-next'));
     expect(history.location.pathname).toBe('/feedback');
     userEvent.click(await screen.findByRole('button', { name: 'Play Again' }));
-
   });
 });
