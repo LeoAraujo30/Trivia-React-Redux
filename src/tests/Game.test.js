@@ -142,4 +142,17 @@ describe('Testando o componente <Game />', () => {
     expect(history.location.pathname).toBe('/feedback');
     userEvent.click(await screen.findByRole('button', { name: 'Play Again' }));
   });
+
+  jest.setTimeout(35000);
+
+  it('Testando a tela de jogo 3 vezes', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+        json: jest.fn().mockResolvedValue(sucessToken),
+      });
+    const { history } = renderWithRouterAndRedux(<App />);
+    history.push('/game');
+
+    await new Promise((r) => setTimeout(r, 30000));
+    await screen.findByTestId('btn-next');
+  });
 });
