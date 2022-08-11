@@ -19,41 +19,32 @@ class Questions extends Component {
   }
 
   componentDidMount() {
-    const { seconds } = this.state;
     const tokenGame = localStorage.getItem('token');
     const oneSecond = 1000;
     this.getQuestions(tokenGame);
-    if (seconds > 0) {
-      setInterval(() => {
-        this.setState((prevState) => ({
-          seconds: prevState.seconds > 0 ? prevState.seconds - 1 : prevState.seconds,
-        }));
-      }, oneSecond);
-    }
+    setInterval(() => {
+      this.setState((prevState) => ({
+        seconds: prevState.seconds > 0 ? prevState.seconds - 1 : prevState.seconds,
+      }));
+    }, oneSecond);
   }
 
   handleClickRightAnswer = () => {
-    const { clicked } = this.state;
     const { addAssertionss } = this.props;
-    if (!clicked) {
-      this.setState({
-        classCorrectOption: correto,
-        classWrongOptions: errado,
-        clicked: true,
-      });
-      addAssertionss();
-    }
+    this.setState({
+      classCorrectOption: correto,
+      classWrongOptions: errado,
+      clicked: true,
+    });
+    addAssertionss();
   }
 
   handleClickWrongAnswer = () => {
-    const { clicked } = this.state;
-    if (!clicked) {
-      this.setState({
-        classCorrectOption: 'correct-option',
-        classWrongOptions: 'wrong-options',
-        clicked: true,
-      });
-    }
+    this.setState({
+      classCorrectOption: 'correct-option',
+      classWrongOptions: 'wrong-options',
+      clicked: true,
+    });
   }
 
     getQuestions = async (token) => {
@@ -107,7 +98,7 @@ class Questions extends Component {
 
     render() {
       const { questions, seconds, classWrongOptions,
-        classCorrectOption, answers, idQuestion } = this.state;
+        classCorrectOption, answers, idQuestion, clicked } = this.state;
       const testReponse = 'correct-option';
       if (questions.length !== 0) {
         return (
@@ -140,7 +131,7 @@ class Questions extends Component {
                           name="correct-answer"
                           data-testid="correct-answer"
                           disabled={ seconds === 0
-                            || classCorrectOption === testReponse }
+                            || classCorrectOption === testReponse || clicked }
                           className={ classCorrectOption }
                           onClick={ () => {
                             this.handleClickRightAnswer();
@@ -156,7 +147,7 @@ class Questions extends Component {
                           name="wrong-answer"
                           data-testid="wrong-answer"
                           disabled={ seconds === 0
-                            || classCorrectOption === testReponse }
+                            || classCorrectOption === testReponse || clicked }
                           className={ classWrongOptions }
                           onClick={ () => this.handleClickWrongAnswer() }
                         >
