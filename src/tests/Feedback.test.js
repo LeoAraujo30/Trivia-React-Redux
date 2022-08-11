@@ -74,8 +74,6 @@ describe('Testando a pagina de feedback', () => {
         const { history } = renderWithRouterAndRedux(<App />, stateTest);
         history.push('/feedback')
 
-        console.log(screen.logTestingPlaygroundURL());
-
        const wellDone = screen.getByRole('heading', { name: /well done!/i })
 
        expect(wellDone).toBeInTheDocument();
