@@ -1,4 +1,4 @@
-<h1>Descrição do Projeto</h1>
+<h1>Descrição do Projeto FrontEnd</h1>
 
 <p>O objetivo desse projeto é simular um jogo de trivia com perguntas e respostas aleatorias, com direito a um hanking de pontos no final.</p>
 
