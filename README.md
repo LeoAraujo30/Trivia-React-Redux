@@ -1,13 +1,18 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+<h1>Descrição do Projeto</h1>
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+<p>O objetivo desse projeto é simular um jogo de trivia com perguntas e respostas aleatorias, com direito a um hanking de pontos no final.</p>
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+<h3>Tecnologias usadas:</h3>
+
+- React
+- React-Testing-Library
+- React-Router
+- Redux
+
+<h3>Projeto desenvolvido em grupo pelas seguintes pessoas:</h3>
+
+- [@LeoAraujo30](https://github.com/LeoAraujo30)
+- [@BrenoOPrado](https://github.com/BrenoOPrado)
+- [@Kuytinho](https://github.com/Kuytinho)
+- [@vidorartur](https://github.com/vidorartur)
+- [@barbaracmgurjao](https://github.com/barbaracmgurjao)
